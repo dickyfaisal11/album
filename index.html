@@ -126,6 +126,23 @@
       }
     }
 
+    /* Button styles for Play Sound */
+    .play-btn {
+      padding: 10px 20px;
+      background-color: #ec407a;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    .play-btn:hover {
+      background-color: #d81b60;
+    }
+
     @media (max-width: 768px) { /* Untuk tablet */
       h1 {
         font-size: 2rem;
@@ -140,15 +157,19 @@
       }
     }
 
-    @media (max-width: 600px) { /* Untuk ponsel */
+    @media (max-width: 600px) { /* Untuk ponsel */ 
       h1 {
         font-size: 1.7rem;
       }
 
+      .subtitle {
+        text-align: center; /* Memastikan teks subtitle di tengah */
+        font-size: 1rem; /* Ukuran font sedikit lebih kecil di ponsel */
+        margin-bottom: 1.5rem;
+      }
+
       .gallery-item img {
         height: auto; /* Atur ukuran gambar lebih kecil */
-    
-       
       }
 
       .gallery-item {
@@ -164,42 +185,45 @@
 <body>
 
   <h1>Album Cintaku 💕</h1>
-  <p class="subtitle">Cinta itu sederhana, hanya tentang dua hati yang saling memahami dan menyayangi, seperti kita🌸</p>
+  <p class="subtitle">Cinta itu sederhana, hanya tentang dua hati yang saling memahami dan menyayangi, seperti kita.</p>
 
   <div class="gallery">
-    <div class="gallery-item" onclick="openLightbox('1.jpg')">
+    <div class="gallery-item" onclick="openLightbox('1.jpg'); playSound();">
       <img src="9.jpg" alt="Foto 1 Cewekku">
       <div class="caption">Senyum manis yang bikin hati tenang 💗</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('2.jpg')">
+    <div class="gallery-item" onclick="openLightbox('2.jpg'); playSound();">
       <img src="2.jpg" alt="Foto 2 Cewekku">
       <div class="caption">Tatapanmu itu selalu bikin jatuh cinta lagi 😍</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('3.jpg')">
+    <div class="gallery-item" onclick="openLightbox('3.jpg'); playSound();">
       <img src="3.jpg" alt="Foto 3 Cewekku">
       <div class="caption">Waktu bersamamu tak pernah cukup 💫</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('4.jpg')">
+    <div class="gallery-item" onclick="openLightbox('4.jpg'); playSound();">
       <img src="4.jpg" alt="Foto 4 Cewekku">
       <div class="caption">Cinta itu sederhana, kamu dan aku 💕</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('5.jpg')">
+    <div class="gallery-item" onclick="openLightbox('5.jpg'); playSound();">
       <img src="5.jpg" alt="Foto 5 Cewekku">
       <div class="caption">Kamu, segalanya bagiku 💕</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('6.jpg')">
+    <div class="gallery-item" onclick="openLightbox('6.jpg'); playSound();">
       <img src="6.jpg" alt="Foto 6 Cewekku">
       <div class="caption">Cinta kita adalah kisah terindah 💖</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('7.jpg')">
+    <div class="gallery-item" onclick="openLightbox('7.jpg'); playSound();">
       <img src="7.jpg" alt="Foto 7 Cewekku">
       <div class="caption">Di sampingmu, aku merasa utuh 💗</div>
     </div>
-    <div class="gallery-item" onclick="openLightbox('8.jpg')">
+    <div class="gallery-item" onclick="openLightbox('8.jpg'); playSound();">
       <img src="8.jpg" alt="Foto 8 Cewekku">
       <div class="caption">Momen indah yang ingin ku ulang terus 💕</div>
     </div>
   </div>
+
+  <!-- Play Sound Button -->
+  <button class="play-btn" onclick="playMusic()">Play Music</button>
 
   <!-- Lightbox Modal -->
   <div id="lightbox" class="lightbox">
@@ -209,16 +233,22 @@
 
   <!-- Floating hearts -->
   <script>
-    // Musik Latar dengan AutoPlay
-    const audio = new Audio('1.mp3'); // Ganti dengan file musik
-    audio.loop = true;
-    audio.muted = true; // Memulai dengan muted untuk memenuhi kebijakan autoplay browser
-    audio.play();
+    // Fungsi untuk memutar musik ketika tombol Play Music diklik
+    let music = new Audio('1.mp3'); // Ganti dengan file musik Anda
+    music.loop = true; // Musik akan diputar secara berulang
+    music.muted = true; // Awalnya dimute untuk memenuhi kebijakan autoplay
 
-    // Hapus mute setelah beberapa detik agar musik bisa didengar
-    setTimeout(() => {
-      audio.muted = false; // Matikan mute setelah 3 detik
-    }, 3000);
+    function playMusic() {
+      music.play(); // Memulai musik
+      music.muted = false; // Matikan mute setelah tombol diklik
+      document.querySelector('.play-btn').disabled = true; // Menonaktifkan tombol setelah klik
+    }
+
+    // Fungsi untuk memutar suara klik setiap kali gambar dibuka
+    function playSound() {
+      const soundEffect = new Audio('click-sound.mp3'); // Ganti dengan file efek suara
+      soundEffect.play();
+    }
 
     // Lightbox
     function openLightbox(imgSrc) {
