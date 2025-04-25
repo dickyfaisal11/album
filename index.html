@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Album Cintaku 💞</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #fce4ec, #c1537a);
+      padding: 2rem;
+      color: #6a1b9a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ad1457;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: #8e24aa;
+      margin-bottom: 2rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .gallery-item {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caption {
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 15px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      padding: 0.5rem;
+    }
+
+    /* Floating hearts effect */
+    .heart {
+      position: fixed;
+      color: #ec407a;
+      font-size: 1.2rem;
+      animation: float 6s linear infinite;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .gallery-item img {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Album Cintaku 💕</h1>
+  <p class="subtitle">Cinta itu sederhana, hanya tentang dua hati yang saling memahami dan menyayangi, seperti kita🌸</p>
+
+  <div class="gallery">
+    <div class="gallery-item" onclick="openLightbox('1.jpg')">
+      <img src="1.jpg" alt="Foto 1 Cewekku">
+      <div class="caption">Senyum manis yang bikin hati tenang 💗</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('2.jpg')">
+      <img src="2.jpg" alt="Foto 2 Cewekku">
+      <div class="caption">Tatapanmu itu selalu bikin jatuh cinta lagi 😍</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('3.jpg')">
+      <img src="3.jpg" alt="Foto 3 Cewekku">
+      <div class="caption">Waktu bersamamu tak pernah cukup 💫</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('4.jpg')">
+      <img src="4.jpg" alt="Foto 4 Cewekku">
+      <div class="caption">Cinta itu sederhana, kamu dan aku 💕</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('5.jpg')">
+      <img src="5.jpg" alt="Foto 5 Cewekku">
+      <div class="caption">Kamu, segalanya bagiku 💕</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('6.jpg')">
+      <img src="6.jpg" alt="Foto 6 Cewekku">
+      <div class="caption">Cinta kita adalah kisah terindah 💖</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('7.jpg')">
+      <img src="7.jpg" alt="Foto 7 Cewekku">
+      <div class="caption">Di sampingmu, aku merasa utuh 💗</div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('8.jpg')">
+      <img src="8.jpg" alt="Foto 8 Cewekku">
+      <div class="caption">Momen indah yang ingin ku ulang terus 💕</div>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img" src="" alt="Foto Cinta">
+  </div>
+
+  <!-- Floating hearts -->
+  <script>
+    // Musik Latar dengan AutoPlay
+    const audio = new Audio('1.mp3'); // Ganti dengan file musik
+    audio.loop = true;
+    audio.muted = true; // Memulai dengan muted untuk memenuhi kebijakan autoplay browser
+    audio.play();
+
+    // Hapus mute setelah beberapa detik agar musik bisa didengar
+    setTimeout(() => {
+      audio.muted = false; // Matikan mute setelah 3 detik
+    }, 3000);
+
+    // Lightbox
+    function openLightbox(imgSrc) {
+      document.getElementById('lightbox').style.display = 'flex';
+      document.getElementById('lightbox-img').src = imgSrc;
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Floating hearts
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+  </script>
+
+</body>
+</html>
